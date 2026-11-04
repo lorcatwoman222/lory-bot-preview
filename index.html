@@ -118,7 +118,10 @@ input {
 <body>
   <div class="chat">
    
-<h2 id="storeTitle">🤖 مساعد متجر لوري</h2>
+
+<img id="storeLogo" alt="شعار المتجر" style="display:none; width:64px; height:64px; object-fit:contain; margin:0 auto 8px;">
+
+    <h2 id="storeTitle">🤖 مساعد متجر لوري</h2>
 
 
 <div id="messages">
@@ -162,8 +165,20 @@ fetch(`https://raw.githubusercontent.com/lorcatwoman222/lory-first-project/lory-
   .then(company => {
     
 document.documentElement.style.setProperty("--brand-color", company.brand_color || "#38bdf8");
+    
+const storeLogo = document.getElementById("storeLogo");
 
-    storeTitle.textContent = "🤖 مساعد " + company.company_name;
+if (company.logo_url) {
+  storeLogo.src = company.logo_url;
+  storeLogo.style.display = "block";
+} else {
+  storeLogo.style.display = "none";
+}
+
+
+    
+storeTitle.textContent = (company.logo_url ? "" : "🤖 ") + "مساعد " + company.company_name;
+
     welcomeMessage.textContent = "أهلًا بك في " + company.company_name + "! أنا مساعدك الذكي، كيف أقدر أخدمك اليوم؟";
   })
   .catch(() => {
