@@ -93,7 +93,9 @@ h2 {
 
 
 button {
-  background: #38bdf8 !important;
+
+background: var(--brand-color, #38bdf8) !important;
+
   color: #082f49 !important;
   border-radius: 12px;
 }
@@ -102,7 +104,10 @@ button {
  
 
 button:hover {
-background: #7dd3fc !important;
+
+background: var(--brand-color, #38bdf8) !important;
+filter: brightness(1.1);
+
 }
 input {
   border: 1px solid #cbd5e1;
@@ -155,6 +160,9 @@ fetch(`https://raw.githubusercontent.com/lorcatwoman222/lory-first-project/lory-
     return response.json();
   })
   .then(company => {
+    
+document.documentElement.style.setProperty("--brand-color", company.brand_color || "#38bdf8");
+
     storeTitle.textContent = "🤖 مساعد " + company.company_name;
     welcomeMessage.textContent = "أهلًا بك في " + company.company_name + "! أنا مساعدك الذكي، كيف أقدر أخدمك اليوم؟";
   })
