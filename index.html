@@ -197,7 +197,9 @@ const response = await fetch(`https://raw.githubusercontent.com/lorcatwoman222/l
     const support = company.human_support;
 
     if (!support || !support.enabled || !support.url) {
-      alert("التواصل مع موظف غير مفعّل في النسخة التجريبية.");
+      
+alert("🧪 هذه تجربة توضيحية. عند تفعيل الخدمة، سيتم توجيه العميل إلى موظف خدمة العملاء عبر وسيلة التواصل الخاصة بالشركة.");
+
       return;
     }
 
