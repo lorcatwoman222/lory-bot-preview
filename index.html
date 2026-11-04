@@ -131,7 +131,9 @@ input {
 </div>
 
 
-<div style="display:flex; flex-wrap:wrap; gap:8px; margin:12px 0;">
+
+<div id="quickQuestions" style="display:flex; flex-wrap:wrap; gap:8px; margin:12px 0;">
+
   <button type="button" onclick="document.getElementById('question').value='ما المنتجات المتوفرة؟'; document.getElementById('chatForm').requestSubmit()">🛍️ المنتجات</button>
   <button type="button" onclick="document.getElementById('question').value='ما أسعار المنتجات؟'; document.getElementById('chatForm').requestSubmit()">💰 الأسعار</button>
   <button type="button" onclick="document.getElementById('question').value='كم تكلفة الشحن ومدة التوصيل؟'; document.getElementById('chatForm').requestSubmit()">🚚 الشحن</button>
@@ -154,6 +156,8 @@ const companyId = new URLSearchParams(window.location.search).get("company_id") 
 const storeTitle = document.getElementById("storeTitle");
 const welcomeMessage = document.getElementById("welcomeMessage");
 
+const quickQuestions = document.getElementById("quickQuestions");
+
 storeTitle.textContent = "🤖 جاري تحميل المتجر...";
 welcomeMessage.textContent = "جاري تحميل معلومات المتجر...";
 
@@ -164,6 +168,23 @@ fetch(`https://raw.githubusercontent.com/lorcatwoman222/lory-first-project/lory-
   })
   .then(company => {
     
+if (Array.isArray(company.quick_questions) && company.quick_questions.length > 0) {
+  quickQuestions.replaceChildren();
+
+  company.quick_questions.forEach((text) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = text;
+
+    button.onclick = () => {
+      document.getElementById("question").value = text;
+      document.getElementById("chatForm").requestSubmit();
+    };
+
+    quickQuestions.appendChild(button);
+  });
+}
+
 document.documentElement.style.setProperty("--brand-color", company.brand_color || "#38bdf8");
     
 const storeLogo = document.getElementById("storeLogo");
